@@ -2,6 +2,8 @@
 
 The advanced filter builder lets users build their own filters from the table's columns. Users pick filters from a filter picker, add each filter as many times as they need, and combine them in groups.
 
+![Advanced filter builder with two groups](../images/filter-builder.png)
+
 - Every filter in a group must match (AND).
 - A record matching any group is shown (OR).
 
@@ -23,6 +25,10 @@ public function table(Table $table): Table
 ```
 
 The builder appears in the table's filters panel, next to the table's other filters. Its filter name is `advanced_filter_builder`.
+
+Users add filters from the filter picker:
+
+![Filter picker](../images/filter-builder-picker.png)
 
 ## Generated filters
 
@@ -168,7 +174,11 @@ Every filter rule gets its own indicator. Indicators are prefixed with "Filter g
 
 ## Expand view
 
-With the dropdown filters layout, the builder shows an **Expand view** link. It reopens the filters in a slide-over with more room. Position the link with:
+With the dropdown filters layout, the builder shows an **Expand view** link. It reopens the filters in a slide-over with more room.
+
+![Filter builder in the expanded slide-over](../images/filter-builder-expanded.png)
+
+Position the link with:
 
 ```php
 DynamicTablesPlugin::make()->filterBuilderExpandViewStyles(['right: 100px', 'top: 24px'])

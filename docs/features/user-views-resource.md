@@ -2,6 +2,8 @@
 
 The user views resource is a Filament resource where administrators browse, approve, reject, edit and delete every user view.
 
+![User views resource](../images/user-views-resource.png)
+
 The resource is disabled by default:
 
 ```php

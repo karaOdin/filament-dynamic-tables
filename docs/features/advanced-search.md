@@ -2,6 +2,8 @@
 
 Advanced search replaces the table's search field with a search input that supports constraints, column selection and AND / OR groups.
 
+![Advanced search with OR groups](../images/advanced-search.png)
+
 Advanced search is disabled by default:
 
 ```php
@@ -20,6 +22,8 @@ Press the down arrow key or click the input to open the dropdown. It has four se
 | Columns | The table's searchable columns. |
 | Database | Extra database columns passed to the table's `->searchable([...])`. |
 | Boolean | AND and OR, when grouping is enabled. |
+
+![Advanced search dropdown](../images/advanced-search-dropdown.png)
 
 Selections are shown as badges in the input: gray for the constraint, blue for columns, yellow for operators. Click an operator badge to switch between AND and OR.
 

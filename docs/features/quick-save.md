@@ -10,6 +10,8 @@ Quick save stores the current table state as a new user view. The button opens a
 - **Global favorite**, which adds the view to every user's favorites bar
 - **Make default**, when [managed default views](managed-default-views.md) are enabled
 
+![Quick save form with the view summary](../images/quick-save.png)
+
 ## Placement
 
 ```php

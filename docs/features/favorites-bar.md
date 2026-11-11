@@ -2,6 +2,8 @@
 
 The favorites bar sits above the table toolbar. It lists the user's favorite views, followed by the quick save and view manager buttons.
 
+![Favorites bar above the products table](../images/overview.png)
+
 Favorites are ordered in groups: favorite preset views first, then global favorites that users cannot manage, then the remaining views in the user's order. Users reorder their favorites in the [view manager](view-manager.md).
 
 ## Themes
@@ -21,6 +23,10 @@ DynamicTablesPlugin::make()
 | Links simple | `FavoritesBarTheme::LinksSimple` |
 | Tabs | `FavoritesBarTheme::Tabs` |
 | Tabs simple | `FavoritesBarTheme::TabsSimple` |
+
+The bar follows the panel colors and dark mode:
+
+![Favorites bar in dark mode](../images/overview-dark.png)
 
 ## Options
 

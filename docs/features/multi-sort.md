@@ -2,6 +2,8 @@
 
 Multi-sort lets users sort a table by several columns.
 
+![Multi-sort panel](../images/multi-sort.png)
+
 A sort button in the table toolbar opens a panel where users:
 
 - add a sortable column

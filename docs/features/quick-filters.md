@@ -2,6 +2,8 @@
 
 Quick filters turn active filter indicators into clickable chips above the table. Clicking a chip opens that filter's fields inline, so users change a filter without opening the filters panel. With deferred filters, an **Apply** button applies the change.
 
+![Quick filter chips](../images/quick-filters.png)
+
 Quick filters are disabled by default:
 
 ```php

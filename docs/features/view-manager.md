@@ -2,6 +2,8 @@
 
 The view manager lists every view available on the table. It opens as a dropdown by default, or as a slide-over.
 
+![View manager dropdown](../images/view-manager.png)
+
 ## Sections
 
 The view manager has up to five sections:
