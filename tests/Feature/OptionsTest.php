@@ -16,8 +16,6 @@ use Workbench\App\Filament\Resources\Products\Pages\ListProducts;
 use Workbench\App\Models\Product;
 use Workbench\App\Models\User;
 
-use function Pest\Livewire\livewire;
-
 beforeEach(function () {
     $this->user = actingAsUser();
 });

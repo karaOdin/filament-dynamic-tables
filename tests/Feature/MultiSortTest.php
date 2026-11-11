@@ -6,8 +6,6 @@ use Workbench\App\Filament\Resources\Products\Pages\ListProducts;
 use Workbench\App\Models\Brand;
 use Workbench\App\Models\Product;
 
-use function Pest\Livewire\livewire;
-
 beforeEach(function () {
     actingAsUser();
 });

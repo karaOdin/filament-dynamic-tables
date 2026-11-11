@@ -13,8 +13,6 @@ use Workbench\App\Livewire\ProductsTable;
 use Workbench\App\Models\Product;
 use Workbench\App\Models\User;
 
-use function Pest\Livewire\livewire;
-
 it('reads options from the plugin, then config', function () {
     $plugin = DynamicTablesPlugin::get();
 
