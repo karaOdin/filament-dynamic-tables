@@ -13,40 +13,24 @@ async function compile(options) {
     }
 }
 
-const defaultOptions = {
-    define: {
-        'process.env.NODE_ENV': isDev ? `'development'` : `'production'`,
-    },
+compile({
+    entryPoints: ['./resources/js/advanced-search.js'],
+    outfile: './resources/dist/components/advanced-search.js',
     bundle: true,
-    mainFields: ['module', 'main'],
-    platform: 'neutral',
-    sourcemap: isDev ? 'inline' : false,
-    sourcesContent: isDev,
-    treeShaking: true,
-    target: ['es2020'],
     minify: !isDev,
-    plugins: [{
-        name: 'watchPlugin',
-        setup: function (build) {
-            build.onStart(() => {
-                console.log(`Build started at ${new Date(Date.now()).toLocaleTimeString()}: ${build.initialOptions.outfile}`)
-            })
-
-            build.onEnd((result) => {
-                if (result.errors.length > 0) {
-                    console.log(`Build failed at ${new Date(Date.now()).toLocaleTimeString()}: ${build.initialOptions.outfile}`, result.errors)
-                } else {
-                    console.log(`Build finished at ${new Date(Date.now()).toLocaleTimeString()}: ${build.initialOptions.outfile}`)
-                }
-            })
-        }
-    }],
-}
+    format: 'esm',
+    platform: 'neutral',
+    target: ['chrome111', 'firefox113', 'safari16.4'],
+    logLevel: 'info',
+})
 
 compile({
-    ...defaultOptions,
-    entryPoints: ['./resources/js/index.js'],
-    outfile: './resources/dist/skeleton.js',
+    entryPoints: ['./resources/css/filament-dynamic-tables.css'],
+    outfile: './resources/dist/filament-dynamic-tables.css',
+    bundle: true,
+    minify: !isDev,
+    target: ['chrome111', 'firefox113', 'safari16.4'],
+    logLevel: 'info',
 }).then(() => {
-    console.log(`Build completed for skeleton.js`)
+    console.log('Built resources/dist/filament-dynamic-tables.css and the Alpine components')
 })

@@ -1,25 +1,28 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace KaraOdin\FilamentDynamicTables\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
+use Filament\Facades\Filament;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
 use Filament\Infolists\InfolistsServiceProvider;
 use Filament\Notifications\NotificationsServiceProvider;
+use Filament\QueryBuilder\QueryBuilderServiceProvider;
 use Filament\Schemas\SchemasServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use KaraOdin\FilamentDynamicTables\FilamentDynamicTablesServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\Concerns\WithWorkbench;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use VendorName\Skeleton\SkeletonServiceProvider;
+use Workbench\App\Providers\Filament\AdminPanelProvider;
+use Workbench\App\Providers\WorkbenchServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -30,14 +33,12 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'VendorName\\Skeleton\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
-        );
+        Filament::setCurrentPanel(Filament::getPanel('admin'));
     }
 
     protected function getPackageProviders($app)
     {
-        $providers = [
+        return array_values(array_filter([
             ActionsServiceProvider::class,
             BladeCaptureDirectiveServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
@@ -47,25 +48,20 @@ class TestCase extends Orchestra
             InfolistsServiceProvider::class,
             LivewireServiceProvider::class,
             NotificationsServiceProvider::class,
+            class_exists(QueryBuilderServiceProvider::class) ? QueryBuilderServiceProvider::class : null,
             SchemasServiceProvider::class,
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            SkeletonServiceProvider::class,
-        ];
-
-        sort($providers);
-
-        return $providers;
+            FilamentDynamicTablesServiceProvider::class,
+            WorkbenchServiceProvider::class,
+            AdminPanelProvider::class,
+        ]));
     }
 
     public function getEnvironmentSetUp($app): void
     {
         $app['config']->set('database.default', 'testing');
-    }
-
-    protected function defineDatabaseMigrations(): void
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $app['config']->set('app.key', 'base64:3m9Yb0eNvWNLyKUoj0Z0aJMs+XYmXkbuS7F3oGzVe6Q=');
     }
 }

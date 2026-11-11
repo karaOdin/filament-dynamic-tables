@@ -1,0 +1,37 @@
+laravel: '@testbench'
+
+providers:
+  - KaraOdin\FilamentDynamicTables\FilamentDynamicTablesServiceProvider
+  - Workbench\App\Providers\WorkbenchServiceProvider
+  - Workbench\App\Providers\Filament\AdminPanelProvider
+
+migrations:
+  - workbench/database/migrations
+
+seeders:
+  - Workbench\Database\Seeders\DatabaseSeeder
+
+env:
+  - APP_KEY="base64:3m9Yb0eNvWNLyKUoj0Z0aJMs+XYmXkbuS7F3oGzVe6Q="
+  - DB_CONNECTION=sqlite
+  - SESSION_DRIVER=file
+
+workbench:
+  start: '/admin'
+  install: true
+  health: false
+  discovers:
+    web: true
+    api: false
+    commands: false
+    components: false
+    factories: true
+    views: true
+  build:
+    - asset-publish
+    - create-sqlite-db
+    - db-wipe
+    - migrate-fresh
+  assets:
+    - laravel-assets
+    - filament-assets

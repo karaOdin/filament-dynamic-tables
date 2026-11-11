@@ -1,4 +1,5 @@
 includes:
+    - vendor/larastan/larastan/extension.neon
     - phpstan-baseline.neon
 
 parameters:
@@ -6,8 +7,22 @@ parameters:
     paths:
         - src
         - config
-        - database
+        - workbench/app
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
-
+    ignoreErrors:
+        # Guards for methods that only exist in Filament 5; analysis runs against one version.
+        -
+            identifier: function.alreadyNarrowedType
+            message: '#method_exists\(\) with Filament\\(Tables\\Table|Forms\\Components\\Builder) and ''(getIdentifier|getDefaultGroupDire.*|searchable|getExtraSearchableColumns|getDefaultDate.*)''#'
+        # Macros are bound to the filter when called.
+        -
+            path: src/Support/FilterOptions.php
+            identifiers:
+                - variable.undefined
+                - varTag.variableNotFound
+        # Drop-in traits for the host app's widgets and pages.
+        -
+            identifier: trait.unused
+            path: src/Widgets/Concerns/*

@@ -1,0 +1,70 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        $tables = config('filament-dynamic-tables.tables');
+        $usersTable = config('filament-dynamic-tables.users.table', 'users');
+        $usersKey = config('filament-dynamic-tables.users.key_column', 'id');
+        $tenantColumn = config('filament-dynamic-tables.tenancy.column', 'tenant_id');
+
+        Schema::create($tables['user_views'] ?? 'dynamic_table_user_views', function (Blueprint $table) use ($usersTable, $usersKey, $tenantColumn): void {
+            $table->id();
+            // Change to foreignUuid() / foreignUlid() if your users use UUID or ULID keys.
+            $table->foreignId('user_id')->constrained($usersTable, $usersKey)->cascadeOnDelete();
+            $table->string($tenantColumn)->nullable()->index();
+            $table->string('panel_id')->nullable()->index();
+            $table->string('table_key')->index();
+            $table->string('url', 2048)->nullable();
+            $table->string('name');
+            $table->string('icon')->nullable();
+            $table->string('color')->nullable();
+            $table->boolean('is_public')->default(false);
+            $table->boolean('is_global_favorite')->default(false);
+            $table->string('status')->default('approved')->index();
+            $table->json('state');
+            $table->unsignedInteger('sort_order')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create($tables['managed_views'] ?? 'dynamic_table_managed_views', function (Blueprint $table) use ($usersTable, $usersKey, $tenantColumn): void {
+            $table->id();
+            $table->foreignId('user_id')->constrained($usersTable, $usersKey)->cascadeOnDelete();
+            $table->string($tenantColumn)->nullable()->index();
+            $table->string('table_key')->index();
+            $table->string('view_type', 20);
+            $table->string('view_key');
+            $table->boolean('is_favorite')->nullable();
+            $table->boolean('is_default')->default(false);
+            $table->unsignedInteger('sort_order')->nullable();
+            $table->timestamps();
+
+            $table->unique(['user_id', $tenantColumn, 'table_key', 'view_type', 'view_key'], 'dt_managed_views_unique');
+        });
+
+        Schema::create($tables['preferences'] ?? 'dynamic_table_preferences', function (Blueprint $table) use ($usersTable, $usersKey, $tenantColumn): void {
+            $table->id();
+            $table->foreignId('user_id')->constrained($usersTable, $usersKey)->cascadeOnDelete();
+            $table->string($tenantColumn)->nullable()->index();
+            $table->string('table_key')->index();
+            $table->json('settings');
+            $table->timestamps();
+
+            $table->unique(['user_id', $tenantColumn, 'table_key'], 'dt_preferences_unique');
+        });
+    }
+
+    public function down(): void
+    {
+        $tables = config('filament-dynamic-tables.tables');
+
+        Schema::dropIfExists($tables['preferences'] ?? 'dynamic_table_preferences');
+        Schema::dropIfExists($tables['managed_views'] ?? 'dynamic_table_managed_views');
+        Schema::dropIfExists($tables['user_views'] ?? 'dynamic_table_user_views');
+    }
+};
