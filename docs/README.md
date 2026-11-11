@@ -2,6 +2,8 @@
 
 Filament Dynamic Tables adds saved views, a favorites bar, multi-column sorting, quick filters, advanced search and an advanced filter builder to Filament tables.
 
+![Products table with the favorites bar](images/overview.png)
+
 ## Get started
 
 - [Installation](get-started/installation.md)
@@ -46,6 +48,6 @@ Filament Dynamic Tables adds saved views, a favorites bar, multi-column sorting,
 | Dependency | Version |
 | --- | --- |
 | PHP | 8.2 or later |
-| Laravel | 11, 12 or 13 |
+| Laravel | 12 or 13 |
 | Filament | 4.16 or later, 5.9 or later |
 | Livewire | 3 or 4 |

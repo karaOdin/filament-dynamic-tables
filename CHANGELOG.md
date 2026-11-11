@@ -18,4 +18,4 @@ All notable changes to `karaodin/filament-dynamic-tables` will be documented in 
 - User Views resource with panel scoping, an Open action, clickable public / global toggles and lazy user loading.
 - Standalone Table Builder base classes (`Livewire\Page`, `PanelPage`, `CustomPage`), a `<x-filament-dynamic-tables::favorites-bar />` component, a `ListUserViews` component and widget traits.
 - Loading skeleton overlay, multi-tenancy (Filament, simple, Spatie, Stancl) with a configurable tenant column, policies, English, French, Spanish and Arabic translations.
-- Supports Filament 4.16+ and 5.9+.
+- Supports Filament 4.16+ and 5.9+ on Laravel 12 and 13.

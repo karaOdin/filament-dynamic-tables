@@ -6,6 +6,8 @@
 
 Saved views, a favorites bar, multi-column sorting, quick filters, advanced search and a filter builder for Filament tables. One trait adds them to resource tables, relation managers, table widgets, custom pages and standalone Table Builder components.
 
+![Products table with the favorites bar](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/overview.png)
+
 - **User views**: users save filters, search, column searches, sort, grouping, toggled and reordered columns into named views with an icon and a color.
 - **Preset views**: developers define views in code with query changes, default filters, sorting, grouping and column visibility.
 - **Favorites bar** in six themes: GitHub, Filament, Links, Links simple, Tabs and Tabs simple.
@@ -19,7 +21,7 @@ Saved views, a favorites bar, multi-column sorting, quick filters, advanced sear
 - **Advanced search**: eight constraints with `-` `=` `^` `$` shortcuts, column selection, AND / OR groups and `&` `|` syntax.
 - **Advanced filter builder**: text, number, date, select and yes/no filters generated from your columns, reusable and combined in OR groups.
 - **Loading skeleton overlay**, multi-tenancy, policy-based authorization, icon aliases, dark mode and English, French, Spanish and Arabic translations.
-- **Filament 4.16+ and 5.9+**, Livewire 3 and 4, Laravel 11 to 13, PHP 8.2+.
+- **Filament 4.16+ and 5.9+**, Livewire 3 and 4, Laravel 12 and 13, PHP 8.2+.
 
 ## Documentation
 
@@ -50,7 +52,7 @@ The full documentation is in the [docs](docs/README.md) folder, with one page pe
 
 ## Installation
 
-Requires PHP 8.2+, Laravel 11+, and Filament 4.16+ or 5.9+. On an older Filament minor version, run `composer update "filament/*"` first.
+Requires PHP 8.2+, Laravel 12+, and Filament 4.16+ or 5.9+. On an older Filament minor version, run `composer update "filament/*"` first.
 
 ```bash
 composer require karaodin/filament-dynamic-tables
@@ -271,6 +273,10 @@ The bar renders inside the table header, which Filament shows when the table has
 
 ## Quick save and the view manager
 
+![Quick save form with the view summary](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/quick-save.png)
+
+![View manager dropdown](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/view-manager.png)
+
 Quick save opens a slide-over (or a modal with `quickSaveSlideOver(false)`) with the view name, icon, color, a **view summary** of what will be saved, and the favorite, public, global favorite and default toggles.
 
 ```php
@@ -319,6 +325,8 @@ Users set a default with the home icon in the view manager, or with the **Make d
 
 ## Multi-sort
 
+![Multi-sort panel](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/multi-sort.png)
+
 A sort button in the toolbar opens a panel where users add columns, flip directions, drag to change priority and remove sorts. Clicking a column header still works. It replaces the sort list with that column, and clicking the primary column again flips its direction and keeps the others.
 
 ```php
@@ -333,6 +341,8 @@ The button only shows when the table has a sortable column. Preset views set sev
 Sorting uses each column's own `sortable()` logic, so relationship columns and custom sort queries work. When the table persists its sort in the session, the full sort list is persisted too.
 
 ## Quick filters
+
+![Quick filter chips](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/quick-filters.png)
 
 Quick filters are off by default. When enabled, active filter indicators become chips: clicking one opens that filter's fields inline, and with deferred filters an **Apply** button applies them. The star pins a filter, so its chip stays visible even when the filter is inactive. Pins are saved per user and per table. Each filter of the filter builder gets its own chip.
 
@@ -351,6 +361,8 @@ Filter::make('created_at')->form([...])->indicateUsing(...)
 ```
 
 ## Advanced search
+
+![Advanced search with OR groups](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/advanced-search.png)
 
 Advanced search replaces the table's search field with a query builder. It is off by default.
 
@@ -407,6 +419,8 @@ The search lives in `$advancedSearch` (a list of `['columns' => [], 'constraint'
 Page widgets that read the table (`InteractsWithPageTable`) should use `KaraOdin\FilamentDynamicTables\Widgets\Concerns\InteractsWithPageTable`, with `KaraOdin\FilamentDynamicTables\Widgets\Concerns\ExposesTableToWidgets` on the page, so the search, multi-sort and active preset view apply to the widgets too.
 
 ## Advanced filter builder
+
+![Advanced filter builder with two groups](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/filter-builder.png)
 
 Add `AdvancedFilter` to the table's filters. Users pick filters from a filter picker, add each one as many times as they like, and combine them in "or" groups: every filter in a group must match, and a record matching any group is shown.
 
@@ -500,6 +514,8 @@ DynamicTablesPlugin::make()
 Shared views start with `initialStatus()` and are shown to other users once their status is at least `minimumStatusForDisplay()` (rejected < pending < approved). Both default to pending, which shows shared views right away. `->approval()`, `->publicViewsRequireApproval()` and `->globalFavoritesRequireApproval()` are shortcuts that require approval. Users who pass the policy's `approve` ability skip the queue. Approve or reject views in the user views resource, and add notifications with a model observer on `UserView`.
 
 ## User views resource
+
+![User views resource](https://raw.githubusercontent.com/karaOdin/filament-dynamic-tables/5.x/docs/images/user-views-resource.png)
 
 ```php
 DynamicTablesPlugin::make()

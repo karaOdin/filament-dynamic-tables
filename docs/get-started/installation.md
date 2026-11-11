@@ -3,7 +3,7 @@
 ## Requirements
 
 - PHP 8.2 or later
-- Laravel 11 or later
+- Laravel 12 or later
 - Filament 4.16 or later, or Filament 5.9 or later
 
 If your application runs an older Filament minor version, update Filament first:
