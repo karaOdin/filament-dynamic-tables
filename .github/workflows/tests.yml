@@ -20,7 +20,7 @@ jobs:
         os: [ubuntu-latest]
         php: [8.4, 8.3, 8.2]
         laravel: [13.*, 12.*]
-        filament: [5.*, 4.*]
+        filament: ["^5.9", "^4.16"]
         stability: [prefer-lowest, prefer-stable]
         include:
           - laravel: 13.*

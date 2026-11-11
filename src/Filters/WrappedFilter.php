@@ -71,11 +71,26 @@ class WrappedFilter extends ColumnFilter
             return filled($data['values'] ?? null) || filled($data['value'] ?? null);
         }
 
-        if (($this->filter instanceof Filter) && (! $this->filter->hasForm())) {
+        if (($this->filter instanceof Filter) && (! $this->filterHasCustomForm($data))) {
             return (bool) ($data['isActive'] ?? false);
         }
 
         return collect(Arr::flatten($data))->contains(fn (mixed $value): bool => filled($value) && ($value !== false));
+    }
+
+    /**
+     * Filter::hasForm() only exists in later Filament 4 releases. Older
+     * releases store a form-less filter's state as a single `isActive` key.
+     *
+     * @param  array<string, mixed>  $data
+     */
+    protected function filterHasCustomForm(array $data): bool
+    {
+        if (method_exists($this->filter, 'hasForm')) { // @phpstan-ignore function.alreadyNarrowedType
+            return $this->filter->hasForm();
+        }
+
+        return array_keys($data) !== ['isActive'];
     }
 
     public function apply(Builder $query, array $data): void
