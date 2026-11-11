@@ -35,10 +35,10 @@ return new class extends Migration
         Schema::create($tables['managed_views'] ?? 'dynamic_table_managed_views', function (Blueprint $table) use ($usersTable, $usersKey, $tenantColumn): void {
             $table->id();
             $table->foreignId('user_id')->constrained($usersTable, $usersKey)->cascadeOnDelete();
-            $table->string($tenantColumn)->nullable()->index();
+            $table->string($tenantColumn, 64)->nullable()->index();
             $table->string('table_key')->index();
             $table->string('view_type', 20);
-            $table->string('view_key');
+            $table->string('view_key', 191);
             $table->boolean('is_favorite')->nullable();
             $table->boolean('is_default')->default(false);
             $table->unsignedInteger('sort_order')->nullable();
